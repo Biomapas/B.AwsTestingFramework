@@ -65,10 +65,10 @@ pip install .
 
 #### Examples
 
-- [Testing AWS CDK based projects]()
-- [Testing CloudFormation based projects]()
-- [Testing Terraform based projects]()
-- [Testing Troposphere based projects]()
+- [Testing AWS CDK based projects](https://github.com/Biomapas/BiomapasAwsTest/blob/master/example-cdk.md)
+- [Testing CloudFormation based projects](https://github.com/Biomapas/BiomapasAwsTest/blob/master/example-cf.md)
+- [Testing Terraform based projects](https://github.com/Biomapas/BiomapasAwsTest/blob/master/example-tf.md)
+- [Testing Troposphere based projects](https://github.com/Biomapas/BiomapasAwsTest/blob/master/example-troposphere.md)
 
 #### Testing
 
