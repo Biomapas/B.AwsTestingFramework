@@ -1,0 +1,2 @@
+include LICENSE
+recursive-include biomapas_aws_test *.py
