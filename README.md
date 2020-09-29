@@ -1,4 +1,4 @@
-# BiomapasAwsTest
+# B.AwsTestingFramework
 
 A python based AWS infrastructure testing micro-framework.<br>
 It supports multiple IAC tools like AWS CDK, AWS CloudFormation, and more...
@@ -65,10 +65,10 @@ pip install .
 
 #### Examples
 
-- [Testing AWS CDK based projects](https://github.com/Biomapas/BiomapasAwsTest/blob/master/example-cdk.md)
-- [Testing CloudFormation based projects](https://github.com/Biomapas/BiomapasAwsTest/blob/master/example-cf.md)
-- [Testing Terraform based projects](https://github.com/Biomapas/BiomapasAwsTest/blob/master/example-tf.md)
-- [Testing Troposphere based projects](https://github.com/Biomapas/BiomapasAwsTest/blob/master/example-troposphere.md)
+- [Testing AWS CDK based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-cdk.md)
+- [Testing CloudFormation based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-cf.md)
+- [Testing Terraform based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-tf.md)
+- [Testing Troposphere based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-troposphere.md)
 
 #### Testing
 

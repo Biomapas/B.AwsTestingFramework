@@ -1,2 +1,5 @@
 include LICENSE
-recursive-include biomapas_aws_test *.py
+include README.md
+include HISTORY.md
+
+recursive-include b_aws_testing_framework *.py
