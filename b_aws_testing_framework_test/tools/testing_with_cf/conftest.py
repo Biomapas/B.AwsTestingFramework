@@ -7,9 +7,9 @@ import sys
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(ROOT_PATH)
 
-from biomapas_aws_test.testing_config.testing_config import TestingConfig
-from biomapas_aws_test.tools.testing_with_cf.cf_tool_config import CfToolConfig
-from biomapas_aws_test.testing_manager_factory import TestingManagerFactory
+from b_aws_testing_framework.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.tools.testing_with_cf.cf_tool_config import CfToolConfig
+from b_aws_testing_framework.testing_manager_factory import TestingManagerFactory
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 

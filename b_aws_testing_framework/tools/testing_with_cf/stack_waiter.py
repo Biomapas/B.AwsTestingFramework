@@ -5,7 +5,7 @@ from typing import Optional
 import boto3
 from botocore.exceptions import ClientError
 
-from biomapas_aws_test.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.testing_config.testing_config import TestingConfig
 
 logger = logging.getLogger(__name__)
 

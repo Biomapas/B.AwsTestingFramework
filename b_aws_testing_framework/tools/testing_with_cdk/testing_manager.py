@@ -2,8 +2,8 @@ import logging
 
 from biomapas_continuous_subprocess.continuous_subprocess import ContinuousSubprocess
 
-from biomapas_aws_test.base_testing_manager import BaseTestingManager
-from biomapas_aws_test.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.base_testing_manager import BaseTestingManager
+from b_aws_testing_framework.testing_config.testing_config import TestingConfig
 
 logger = logging.getLogger(__name__)
 

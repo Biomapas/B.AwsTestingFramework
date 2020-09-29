@@ -3,17 +3,17 @@
 An example file structure of your project could look like this:
 
 ```text
-your-project-root            # Project root.
-│---setup.py
-└───package-name             # Project files.
-│   │---package-file-1.py
-│   │---package-file-2.py
-│   │---package-file-n.py
-└───test                     # Testing folder.
-    │---conftest.py          # Configuring your tests behaviour.
-    │---test_stack_exists.py # Test that asserts the created infrastructure.
-    │---app.py               # AWS CDK app.
-    │---cdk.json             # AWS CDK configuration.
+- your-project-root             # Project root.
+    - package-name/             # Project files.
+        - package-file-1.py     # Project file.
+        - package-file-2.py     # Project file.
+        - package-file-n.py     # Project file.
+    - test/                     # Testing folder.
+        - conftest.py           # Configuring your tests behaviour.
+        - test_stack_exists.py  # Test that asserts the created infrastructure.
+        - app.py                # AWS CDK app.
+        - cdk.json              # AWS CDK configuration.
+    - setup.py                  # Packaging file.
 ```
 
 Since this framework is based on `pytest` you should create a `conftest.py`
@@ -21,9 +21,9 @@ file to configure testing behaviour. The basic contents of the file could
 look like this:
 
 ```python
-from biomapas_aws_test.testing_config.testing_config import TestingConfig
-from biomapas_aws_test.tools.testing_with_cdk.cdk_tool_config import CdkToolConfig
-from biomapas_aws_test.testing_manager_factory import TestingManagerFactory
+from b_aws_testing_framework.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.tools.testing_with_cdk.cdk_tool_config import CdkToolConfig
+from b_aws_testing_framework.testing_manager_factory import TestingManagerFactory
 
 def pytest_configure(config):
     TestingConfig.credentials().set_testing_aws_region('eu-central-1')
@@ -40,7 +40,7 @@ def pytest_sessionfinish(session, exitstatus):
 Now create some test, for example:
 
 ```python
-from biomapas_aws_test.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.testing_config.testing_config import TestingConfig
 
 def test_stack_exists() -> None:
     session = boto3.session.Session(

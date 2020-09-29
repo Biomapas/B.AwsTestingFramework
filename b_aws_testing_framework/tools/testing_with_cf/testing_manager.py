@@ -3,9 +3,9 @@ import logging
 import boto3 as boto3
 from botocore.exceptions import ClientError
 
-from biomapas_aws_test.base_testing_manager import BaseTestingManager
-from biomapas_aws_test.testing_config.testing_config import TestingConfig
-from biomapas_aws_test.tools.testing_with_cf.stack_waiter import StackWaiter
+from b_aws_testing_framework.base_testing_manager import BaseTestingManager
+from b_aws_testing_framework.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.tools.testing_with_cf.stack_waiter import StackWaiter
 
 logger = logging.getLogger(__name__)
 

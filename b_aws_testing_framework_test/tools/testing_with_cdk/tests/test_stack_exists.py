@@ -2,7 +2,7 @@ import logging
 
 import boto3
 
-from biomapas_aws_test.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.testing_config.testing_config import TestingConfig
 
 logger = logging.getLogger(__name__)
 

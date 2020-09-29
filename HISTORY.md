@@ -1,5 +1,9 @@
 # Release history
 
+### 0.0.4
+* Fix imports.
+* Update examples.
+
 ### 0.0.3
 * Rename project.
 * Update gitignore and ignore idea files.

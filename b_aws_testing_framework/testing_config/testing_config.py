@@ -1,5 +1,5 @@
-from biomapas_aws_test.testing_config.credentials_config import CredentialsConfig
-from biomapas_aws_test.testing_config.tools_config import ToolsConfig
+from b_aws_testing_framework.testing_config.credentials_config import CredentialsConfig
+from b_aws_testing_framework.testing_config.tools_config import ToolsConfig
 
 
 class TestingConfig:

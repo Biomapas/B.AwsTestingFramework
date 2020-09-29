@@ -1,9 +1,9 @@
 # B.AwsTestingFramework
 
 A python based AWS infrastructure testing micro-framework.<br>
-It supports multiple IAC tools like AWS CDK, AWS CloudFormation, and more...
+It supports multiple IAC tools like AWS CDK and AWS CloudFormation.
 
-#### Description
+### Description
 
 Creating infrastructure in AWS is quite hard. There are many nuances,
 pitfalls and "gotchas" that sometimes are awfully frustrating. Often some 
@@ -16,27 +16,24 @@ via UI or via tools like AWS CDK.
 The framework is based on pytest - a python based testing library. With that
 said, all pytest functionality and configs can be applied on this framework too.
 
-The framework tries to cover some of the most popular IAC tools available on
-the market: AWS CDK, Terraform, Troposphere, CloudFormation. More coming...
-
 The framework is easy to use with explicit examples for each IAC tool. Go to
 examples section and find which example suits you the most.
 
-#### Remarks
+### Remarks
 
 [Biomapas](https://biomapas.com) aims to modernise life-science 
 industry by sharing its IT knowledge with other companies and 
 the community. This is an open source library intended to be used 
 by anyone. Improvements and pull requests are welcome.
 
-#### Related technology
+### Related technology
 
 - Python 3
 - Pytest
 - AWS CDK
 - AWS CloudFormation
 
-#### Assumptions
+### Assumptions
 
 The project assumes the following:
 
@@ -44,17 +41,17 @@ The project assumes the following:
 - You have basic-good knowledge in AWS.
 - You have basic knowledge in testing.
 
-#### Useful sources
+### Useful sources
 
 - Read more about pytest:<br>
 https://docs.pytest.org/en/latest/
 
-#### Install
+### Install
 
 The project is built and uploaded to PyPi. Install it by using pip.
 
 ```bash
-pip install biomapas-aws-test
+pip install b_aws_testing_framework
 ```
 
 Or directly install it through source.
@@ -63,14 +60,12 @@ Or directly install it through source.
 pip install .
 ```
 
-#### Examples
+### Usage & Examples
 
 - [Testing AWS CDK based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-cdk.md)
 - [Testing CloudFormation based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-cf.md)
-- [Testing Terraform based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-tf.md)
-- [Testing Troposphere based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-troposphere.md)
 
-#### Testing
+### Testing
 
 The project has tests that can be run. 
 Note, that tests are integration tests inherently because they
@@ -78,7 +73,7 @@ test how resources are created in AWS environment. Since resources
 are created and tested in AWS you are subject for all the applicable
 charges while tests are being run.
 
-##### Setting environment
+#### Setting environment
 
 Before running tests set an environment variable `BIOMAPAS_AWS_TEST_PROFILE`.
 This environment variable specifies an aws account to use for deployment and testing.
@@ -94,34 +89,24 @@ Set on Linux:
 export BIOMAPAS_AWS_TEST_PROFILE=default
 ```
 
-##### Running tests
+#### Running tests
 
 Then run tests from a root directory with `pytest` python testing library.
 
 Testing *CloudFormation* functionality:
 ```bash
-pytest biomapas_aws_test_test/tools/testing_with_cf
+pytest b_aws_testing_framework_test/tools/testing_with_cf
 ```
 
 Testing *Cloud Development Kit* functionality:
 ```bash
-pytest biomapas_aws_test_test/tools/testing_with_cdk
-```
-
-Testing *Troposphere* functionality:
-```bash
-pytest biomapas_aws_test_test/tools/testing_with_troposphere
-```
-
-Testing *Terraform* functionality:
-```bash
-pytest biomapas_aws_test_test/tools/testing_with_tf
+pytest b_aws_testing_framework_test/tools/testing_with_cdk
 ```
 
 Note that integration tests usually take a while to complete (from 5 to 30
 minutes on average).
 
-#### Contribution
+### Contribution
 
 Found a bug? Want to add or suggest a new feature?<br>
 Contributions of any kind are gladly welcome. You may contact us 
