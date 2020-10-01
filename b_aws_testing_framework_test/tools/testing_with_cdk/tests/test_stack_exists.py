@@ -1,8 +1,6 @@
 import logging
 
-import boto3
-
-from b_aws_testing_framework.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.credentials import Credentials
 
 logger = logging.getLogger(__name__)
 
@@ -16,12 +14,7 @@ def test_stack_exists() -> None:
     # The stack name is provided by the cdk testing infrastructure.
     STACK_NAME = 'TestingStack'
 
-    session = boto3.session.Session(
-        profile_name=TestingConfig.credentials().get_testing_aws_profile(),
-        region_name=TestingConfig.credentials().get_testing_aws_region()
-    )
-
-    stacks = session.client('cloudformation').list_stacks(
+    stacks = Credentials().boto_session.client('cloudformation').list_stacks(
         StackStatusFilter=['CREATE_COMPLETE']
     )['StackSummaries']
     stacks = [stack['StackName'] for stack in stacks]

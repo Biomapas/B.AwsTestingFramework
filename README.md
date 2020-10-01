@@ -50,17 +50,43 @@ https://docs.pytest.org/en/latest/
 
 The project is built and uploaded to PyPi. Install it by using pip.
 
-```bash
+```
 pip install b_aws_testing_framework
 ```
 
 Or directly install it through source.
 
-```bash
+```
 pip install .
 ```
 
 ### Usage & Examples
+
+The framework uses flexible credentials management. You can either
+set credentials in the constructor:
+```python
+from b_aws_testing_framework.credentials import Credentials
+Credentials(
+    aws_access_key_id='key',
+    aws_secret_access_key='secret',
+    region_name='region'
+)
+```
+
+Or you can set the environment:
+```
+set AWS_ACCESS_KEY_ID=key
+set AWS_SECRET_ACCESS_KEY=key
+set AWS_DEFAULT_REGION=region
+```
+
+And then in your python program:
+```python
+from b_aws_testing_framework.credentials import Credentials
+Credentials()
+```
+
+See the specific examples for specific tools:
 
 - [Testing AWS CDK based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-cdk.md)
 - [Testing CloudFormation based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-cf.md)
@@ -75,31 +101,26 @@ charges while tests are being run.
 
 #### Setting environment
 
-Before running tests set an environment variable `BIOMAPAS_AWS_TEST_PROFILE`.
-This environment variable specifies an aws account to use for deployment and testing.
-Usually this profile is called `default` when created with `aws configure` cli command.
+Before running tests set environment variables:
+- AWS_ACCESS_KEY_ID
+- AWS_SECRET_ACCESS_KEY
+- AWS_DEFAULT_REGION
 
-Set on Windows:
-```bash
-set BIOMAPAS_AWS_TEST_PROFILE=default
-```
-
-Set on Linux:
-```bash
-export BIOMAPAS_AWS_TEST_PROFILE=default
-```
+Or:
+- AWS_PROFILE
+- AWS_DEFAULT_REGION
 
 #### Running tests
 
 Then run tests from a root directory with `pytest` python testing library.
 
 Testing *CloudFormation* functionality:
-```bash
+```
 pytest b_aws_testing_framework_test/tools/testing_with_cf
 ```
 
 Testing *Cloud Development Kit* functionality:
-```bash
+```
 pytest b_aws_testing_framework_test/tools/testing_with_cdk
 ```
 

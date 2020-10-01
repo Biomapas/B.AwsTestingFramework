@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.5
+* Rethink how this framework should be used.
+
 ### 0.0.4
 * Fix imports.
 * Update examples.

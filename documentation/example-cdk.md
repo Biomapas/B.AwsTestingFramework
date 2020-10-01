@@ -21,38 +21,34 @@ file to configure testing behaviour. The basic contents of the file could
 look like this:
 
 ```python
-from b_aws_testing_framework.testing_config.testing_config import TestingConfig
-from b_aws_testing_framework.tools.testing_with_cdk.cdk_tool_config import CdkToolConfig
-from b_aws_testing_framework.testing_manager_factory import TestingManagerFactory
+from b_aws_testing_framework.credentials import Credentials
+from b_aws_testing_framework.tools.cdk_testing.cdk_tool_config import CdkToolConfig
+from b_aws_testing_framework.tools.cdk_testing.testing_manager import TestingManager
 
-def pytest_configure(config):
-    TestingConfig.credentials().set_testing_aws_region('eu-central-1')
-    TestingConfig.credentials().set_testing_aws_profile('default')
-    TestingConfig.tools_config().enable_cdk_testing(CdkToolConfig('.'))
 
 def pytest_sessionstart(session):
-    TestingManagerFactory.create().prepare_infrastructure()
+    TestingManager(Credentials(), CdkToolConfig('.')).prepare_infrastructure()
+
 
 def pytest_sessionfinish(session, exitstatus):
-    TestingManagerFactory.create().destroy_infrastructure()
+    TestingManager(Credentials(), CdkToolConfig('.')).destroy_infrastructure()
 ```
 
-Now create some test, for example:
+Now create some tests, for example:
 
 ```python
-from b_aws_testing_framework.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.credentials import Credentials
+
 
 def test_stack_exists() -> None:
-    session = boto3.session.Session(
-        profile_name=TestingConfig.credentials().get_testing_aws_profile(),
-        region_name=TestingConfig.credentials().get_testing_aws_region()
-    )
+    stacks = Credentials().boto_session.client('cloudformation').list_stacks()['StackSummaries']
+    stacks = [stack['StackName'] for stack in stacks]
 
-    session.client('cloudformation').list_stacks()
+    assert 'TestStack' in stacks
 ```
 
-If everything looks correct, run in your terminal:
+After that, run in your terminal:
 
-```bash
+```
 pytest
 ```

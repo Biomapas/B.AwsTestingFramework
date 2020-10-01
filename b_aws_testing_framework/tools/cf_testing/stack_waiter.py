@@ -2,10 +2,9 @@ import logging
 import time
 from typing import Optional
 
-import boto3
 from botocore.exceptions import ClientError
 
-from b_aws_testing_framework.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.credentials import Credentials
 
 logger = logging.getLogger(__name__)
 
@@ -18,10 +17,7 @@ class StackWaiter:
 
     def __init__(self, stack_name: str):
         self.__stack_name = stack_name
-        self.__client = boto3.session.Session(
-            profile_name=TestingConfig.credentials().get_testing_aws_profile(),
-            region_name=TestingConfig.credentials().get_testing_aws_region()
-        ).client('cloudformation')
+        self.__client = Credentials().boto_session.client('cloudformation')
 
     def wait(self, current_iteration: int = 0, max_iterations: int = 100, sleep_time: int = 5) -> None:
         """

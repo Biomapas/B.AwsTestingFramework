@@ -1,9 +1,11 @@
 import logging
+import os
 
 from biomapas_continuous_subprocess.continuous_subprocess import ContinuousSubprocess
 
 from b_aws_testing_framework.base_testing_manager import BaseTestingManager
-from b_aws_testing_framework.testing_config.testing_config import TestingConfig
+from b_aws_testing_framework.credentials import Credentials
+from b_aws_testing_framework.tools.cdk_testing.cdk_tool_config import CdkToolConfig
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +15,10 @@ class TestingManager(BaseTestingManager):
     Test manager class which prepares infrastructure for tests.
     After tests are finished, destroys the infrastructure.
     """
+    def __init__(self, credentials: Credentials, config: CdkToolConfig):
+        super().__init__(credentials)
+
+        self.__config = config
 
     def prepare_infrastructure(self) -> None:
         """
@@ -39,22 +45,19 @@ class TestingManager(BaseTestingManager):
     Infrastructure functions.
     """
 
-    @staticmethod
-    def __bootstrap_infrastructure() -> None:
+    def __bootstrap_infrastructure(self) -> None:
         sub = ContinuousSubprocess(TestingManager.__aws_cdk_bootstrap_command())
-        output = sub.execute(path=TestingConfig.tools_config().get_cdk_config().cdk_app_path)
+        output = sub.execute(path=self.__config.cdk_app_path, env={**os.environ.copy(), **self.credentials.environ})
         for line in output: logger.info(line)
 
-    @staticmethod
-    def __create_infrastructure() -> None:
+    def __create_infrastructure(self) -> None:
         sub = ContinuousSubprocess(TestingManager.__aws_cdk_deploy_command())
-        output = sub.execute(path=TestingConfig.tools_config().get_cdk_config().cdk_app_path)
+        output = sub.execute(path=self.__config.cdk_app_path, env={**os.environ.copy(), **self.credentials.environ})
         for line in output: logger.info(line)
 
-    @staticmethod
-    def __destroy_infrastructure() -> None:
+    def __destroy_infrastructure(self) -> None:
         sub = ContinuousSubprocess(TestingManager.__aws_cdk_destroy_command())
-        output = sub.execute(path=TestingConfig.tools_config().get_cdk_config().cdk_app_path)
+        output = sub.execute(path=self.__config.cdk_app_path, env={**os.environ.copy(), **self.credentials.environ})
         for line in output: logger.info(line)
 
     """
@@ -63,21 +66,12 @@ class TestingManager(BaseTestingManager):
 
     @staticmethod
     def __aws_cdk_bootstrap_command() -> str:
-        profile = TestingConfig.credentials().get_testing_aws_profile()
-        profile_arg = f' --profile {profile}' if profile else ''
-        command = 'cdk bootstrap' + profile_arg
-        return command
+        return 'cdk bootstrap'
 
     @staticmethod
     def __aws_cdk_deploy_command() -> str:
-        profile = TestingConfig.credentials().get_testing_aws_profile()
-        profile_arg = f' --profile {profile}' if profile else ''
-        command = 'cdk deploy * --require-approval never' + profile_arg
-        return command
+        return 'cdk deploy * --require-approval never'
 
     @staticmethod
     def __aws_cdk_destroy_command() -> str:
-        profile = TestingConfig.credentials().get_testing_aws_profile()
-        profile_arg = f' --profile {profile}' if profile else ''
-        command = 'cdk destroy * --require-approval never --force' + profile_arg
-        return command
+        return 'cdk destroy * --require-approval never --force'

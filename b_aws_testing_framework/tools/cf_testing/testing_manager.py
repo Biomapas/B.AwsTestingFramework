@@ -1,11 +1,11 @@
 import logging
 
-import boto3 as boto3
 from botocore.exceptions import ClientError
 
 from b_aws_testing_framework.base_testing_manager import BaseTestingManager
-from b_aws_testing_framework.testing_config.testing_config import TestingConfig
-from b_aws_testing_framework.tools.testing_with_cf.stack_waiter import StackWaiter
+from b_aws_testing_framework.credentials import Credentials
+from b_aws_testing_framework.tools.cf_testing.cf_tool_config import CfToolConfig
+from b_aws_testing_framework.tools.cf_testing.stack_waiter import StackWaiter
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +15,10 @@ class TestingManager(BaseTestingManager):
     Test manager class which prepares infrastructure for tests.
     After tests are finished, destroys the infrastructure.
     """
+    def __init__(self, credentials: Credentials, config: CfToolConfig):
+        super().__init__(credentials)
+
+        self.__config = config
 
     def prepare_infrastructure(self) -> None:
         """
@@ -39,14 +43,10 @@ class TestingManager(BaseTestingManager):
     Infrastructure functions.
     """
 
-    @staticmethod
-    def __create_infrastructure() -> None:
-        client = boto3.session.Session(
-            profile_name=TestingConfig.credentials().get_testing_aws_profile(),
-            region_name=TestingConfig.credentials().get_testing_aws_region()
-        ).client('cloudformation')
+    def __create_infrastructure(self) -> None:
+        client = self.credentials.boto_session.client('cloudformation')
 
-        with open(TestingConfig.tools_config().get_cf_config().cf_template_path, 'r') as file:
+        with open(self.__config.cf_template_path, 'r') as file:
             client.create_stack(
                 StackName='TestStack',
                 TemplateBody=file.read(),
@@ -55,12 +55,8 @@ class TestingManager(BaseTestingManager):
 
         StackWaiter('TestStack').wait()
 
-    @staticmethod
-    def __destroy_infrastructure() -> None:
-        client = boto3.session.Session(
-            profile_name=TestingConfig.credentials().get_testing_aws_profile(),
-            region_name=TestingConfig.credentials().get_testing_aws_region()
-        ).client('cloudformation')
+    def __destroy_infrastructure(self) -> None:
+        client = self.credentials.boto_session.client('cloudformation')
 
         try:
             client.delete_stack(

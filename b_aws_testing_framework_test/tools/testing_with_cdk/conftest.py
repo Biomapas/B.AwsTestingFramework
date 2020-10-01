@@ -7,24 +7,13 @@ import sys
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(ROOT_PATH)
 
-from b_aws_testing_framework.testing_config.testing_config import TestingConfig
-from b_aws_testing_framework.tools.testing_with_cdk.cdk_tool_config import CdkToolConfig
-from b_aws_testing_framework.testing_manager_factory import TestingManagerFactory
+from b_aws_testing_framework.credentials import Credentials
+from b_aws_testing_framework.tools.cdk_testing.cdk_tool_config import CdkToolConfig
+from b_aws_testing_framework.tools.cdk_testing.testing_manager import TestingManager
 
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 
 CDK_PATH = f'{os.path.dirname(os.path.abspath(__file__))}'
-
-
-def pytest_configure(config):
-    """
-    Allows plugins and conftest files to perform initial configuration.
-    This hook is called for every plugin and initial conftest
-    file after command line options have been parsed.
-    """
-    TestingConfig.credentials().set_testing_aws_region('eu-central-1')
-    TestingConfig.credentials().set_testing_aws_profile(os.environ['BIOMAPAS_AWS_TEST_PROFILE'])
-    TestingConfig.tools_config().enable_cdk_testing(CdkToolConfig(CDK_PATH))
 
 
 def pytest_sessionstart(session):
@@ -32,7 +21,7 @@ def pytest_sessionstart(session):
     Called after the Session object has been created and
     before performing collection and entering the run test loop.
     """
-    TestingManagerFactory.create().prepare_infrastructure()
+    TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).prepare_infrastructure()
 
 
 def pytest_sessionfinish(session, exitstatus):
@@ -40,11 +29,4 @@ def pytest_sessionfinish(session, exitstatus):
     Called after whole test run finished, right before
     returning the exit status to the system.
     """
-    TestingManagerFactory.create().destroy_infrastructure()
-
-
-def pytest_unconfigure(config):
-    """
-    Called before test process is exited.
-    """
-    pass
+    TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).destroy_infrastructure()
