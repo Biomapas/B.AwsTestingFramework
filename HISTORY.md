@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.7
+* Bug fix related to environment.
+
 ### 0.0.6
 * Update pytest dependency version.
 

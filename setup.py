@@ -8,7 +8,7 @@ with open('HISTORY.md') as history_file:
 
 setup(
     name='b_aws_testing_framework',
-    version='0.0.6',
+    version='0.0.7',
     license='Apache License 2.0',
     packages=find_packages(exclude=[
         # Exclude virtual environment.
