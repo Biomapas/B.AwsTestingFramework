@@ -8,7 +8,7 @@ with open('HISTORY.md') as history_file:
 
 setup(
     name='b_aws_testing_framework',
-    version='0.0.5',
+    version='0.0.6',
     license='Apache License 2.0',
     packages=find_packages(exclude=[
         # Exclude virtual environment.
@@ -23,7 +23,7 @@ setup(
     long_description_content_type="text/markdown",
     include_package_data=True,
     install_requires=[
-        "pytest>=5.4.3,<6.0.0",
+        "pytest>=5.4.3,<7.0.0",
         "biomapas-continuous-subprocess>=1.0.0,<2.0.0"
     ],
     author='Laimonas Sutkus',
