@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.8
+* Make sure CDK deploy works both on linux based systems and windows based systems.
+
 ### 0.0.7
 * Bug fix related to environment.
 

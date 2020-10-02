@@ -71,8 +71,8 @@ class TestingManager(BaseTestingManager):
 
     @staticmethod
     def __aws_cdk_deploy_command() -> str:
-        return 'cdk deploy * --require-approval never'
+        return 'cdk deploy "*" --require-approval never'
 
     @staticmethod
     def __aws_cdk_destroy_command() -> str:
-        return 'cdk destroy * --require-approval never --force'
+        return 'cdk destroy "*" --require-approval never --force'
