@@ -27,6 +27,7 @@ setup(
     long_description_content_type="text/markdown",
     include_package_data=True,
     install_requires=[
+        "boto3>=1.10.46,<1.16.0"
         "pytest>=5.4.3,<7.0.0",
         "b-continuous-subprocess>=0.0.2,<1.0.0"
     ],
