@@ -24,12 +24,13 @@ setup(
         'AWS infrastructure testing framework that supports multiple IAC tools.'
     ),
     long_description=README + '\n\n' + HISTORY,
-    long_description_content_type="text/markdown",
+    long_description_content_type='text/markdown',
     include_package_data=True,
     install_requires=[
-        "boto3>=1.10.46,<1.16.0"
-        "pytest>=5.4.3,<7.0.0",
-        "b-continuous-subprocess>=0.0.2,<1.0.0"
+        'aws-cdk.core>=1.54.0,<2.0.0',
+        'boto3>=1.10.46,<1.16.0',
+        'pytest>=5.4.3,<7.0.0',
+        'b-continuous-subprocess>=0.0.2,<1.0.0'
     ],
     author='Laimonas Sutkus',
     author_email='laimonas.sutkus@biomapas.com',
