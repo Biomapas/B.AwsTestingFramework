@@ -28,7 +28,7 @@ setup(
     include_package_data=True,
     install_requires=[
         "pytest>=5.4.3,<7.0.0",
-        "biomapas-continuous-subprocess>=1.0.0,<2.0.0"
+        "b-continuous-subprocess>=0.0.2,<1.0.0"
     ],
     author='Laimonas Sutkus',
     author_email='laimonas.sutkus@biomapas.com',

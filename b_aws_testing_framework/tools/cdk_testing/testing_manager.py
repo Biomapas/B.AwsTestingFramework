@@ -1,7 +1,7 @@
 import logging
 import os
 
-from biomapas_continuous_subprocess.continuous_subprocess import ContinuousSubprocess
+from b_continuous_subprocess.continuous_subprocess import ContinuousSubprocess
 
 from b_aws_testing_framework.base_testing_manager import BaseTestingManager
 from b_aws_testing_framework.credentials import Credentials
