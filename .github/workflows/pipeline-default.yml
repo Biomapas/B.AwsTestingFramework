@@ -19,5 +19,6 @@ jobs:
 
       - name: Install
         run: |
+          npm install -g aws-cdk
           pip install . --upgrade
           pip list
