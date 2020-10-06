@@ -1,0 +1,23 @@
+name: Pipeline
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  push:
+    branches-ignore:
+      - master
+
+jobs:
+  install-test:
+    runs-on: ubuntu-latest
+    container: nikolaik/python-nodejs:python3.8-nodejs14
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install
+        run: |
+          pip install . --upgrade
+          pip list
