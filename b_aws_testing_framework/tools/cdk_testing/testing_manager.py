@@ -30,6 +30,9 @@ class TestingManager(BaseTestingManager):
 
         :return: No return.
         """
+        if not self.is_global_prefix_set():
+            self.set_global_prefix()
+
         self.__bootstrap_infrastructure()
         self.__destroy_infrastructure()
         self.__create_infrastructure()
@@ -41,6 +44,8 @@ class TestingManager(BaseTestingManager):
         :return: No return.
         """
         self.__destroy_infrastructure()
+
+        self.delete_global_prefix()
 
     """
     Infrastructure functions.

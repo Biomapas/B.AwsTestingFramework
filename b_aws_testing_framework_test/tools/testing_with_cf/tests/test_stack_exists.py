@@ -1,6 +1,7 @@
 import logging
 
 from b_aws_testing_framework.credentials import Credentials
+from b_aws_testing_framework.tools.cf_testing.testing_manager import TestingManager
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +13,7 @@ def test_stack_exists() -> None:
     :return: No return.
     """
     # The stack name is provided by the cf testing manager.
-    STACK_NAME = 'TestStack'
+    STACK_NAME = f'{TestingManager.get_global_prefix()}TestStack'
 
     stacks = Credentials().boto_session.client('cloudformation').list_stacks(
         StackStatusFilter=['CREATE_COMPLETE']

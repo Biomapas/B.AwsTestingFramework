@@ -28,6 +28,9 @@ class TestingManager(BaseTestingManager):
 
         :return: No return.
         """
+        if not self.is_global_prefix_set():
+            self.set_global_prefix()
+
         self.__destroy_infrastructure()
         self.__create_infrastructure()
 
@@ -39,6 +42,8 @@ class TestingManager(BaseTestingManager):
         """
         self.__destroy_infrastructure()
 
+        self.delete_global_prefix()
+
     """
     Infrastructure functions.
     """
@@ -48,19 +53,19 @@ class TestingManager(BaseTestingManager):
 
         with open(self.__config.cf_template_path, 'r') as file:
             client.create_stack(
-                StackName='TestStack',
+                StackName=f'{self.get_global_prefix()}TestStack',
                 TemplateBody=file.read(),
                 Capabilities=['CAPABILITY_IAM'],
             )
 
-        StackWaiter('TestStack').wait()
+        StackWaiter(f'{self.get_global_prefix()}TestStack').wait()
 
     def __destroy_infrastructure(self) -> None:
         client = self.credentials.boto_session.client('cloudformation')
 
         try:
             client.delete_stack(
-                StackName='TestStack',
+                StackName=f'{self.get_global_prefix()}TestStack',
             )
         except ClientError as ex:
             # Retrieve code and message from an error.
@@ -74,4 +79,4 @@ class TestingManager(BaseTestingManager):
             # Otherwise throw an exception.
             raise
 
-        StackWaiter('TestStack').wait()
+        StackWaiter(f'{self.get_global_prefix()}TestStack').wait()

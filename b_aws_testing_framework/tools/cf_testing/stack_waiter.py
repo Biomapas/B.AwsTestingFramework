@@ -13,8 +13,6 @@ class StackWaiter:
     """
     Waiter class that waits for a cloud formation stack to stabilize.
     """
-    STACK_NAME = 'TestStack'
-
     def __init__(self, stack_name: str):
         self.__stack_name = stack_name
         self.__client = Credentials().boto_session.client('cloudformation')
@@ -46,7 +44,7 @@ class StackWaiter:
         :return: Stack status.
         """
         try:
-            stack = self.__client.describe_stacks(StackName=self.STACK_NAME)['Stacks'][0]
+            stack = self.__client.describe_stacks(StackName=self.__stack_name)['Stacks'][0]
             return stack['StackStatus']
         except ClientError as ex:
             # Retrieve code and message from an error.
