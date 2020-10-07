@@ -86,6 +86,23 @@ from b_aws_testing_framework.credentials import Credentials
 Credentials()
 ```
 
+After setting the credentials you can set a `global prefix`. Global prefix
+is a globally accessible peace of string that can be used when naming AWS 
+resources. This is extremely useful when running tests in CI/CD pipelines
+where we can have more than one parallel pipeline running. To access and
+manage a global prefix, import your testing manager and use these commands:
+```python
+# Set a random string.
+TestingManager.set_global_prefix()
+
+# Create a resource with a unique name. E.g.
+CdkStack(
+    scope=scope,
+    id=f'{TestingManager.get_global_prefix()}TestingStackId',
+    stack_name=f'{TestingManager.get_global_prefix()}TestingStackName'
+)
+```
+
 See the specific examples for specific tools:
 
 - [Testing AWS CDK based projects](https://github.com/Biomapas/B.AwsTestingFramework/blob/master/documentation/example-cdk.md)

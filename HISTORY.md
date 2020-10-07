@@ -1,5 +1,11 @@
 # Release history
 
+### 0.0.11
+* Add documentation about global prefix in readme.
+
+### 0.0.10
+* Create a global prefix for unique resources.
+
 ### 0.0.9
 * Create github pipelines.
 * Update code.
