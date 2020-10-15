@@ -1,5 +1,9 @@
 # Release history
 
+### 0.0.12
+* Add a flag to specify whether the infrastructure should be destroyed
+before creating a new one.
+
 ### 0.0.11
 * Add documentation about global prefix in readme.
 

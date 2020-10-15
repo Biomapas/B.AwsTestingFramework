@@ -34,7 +34,10 @@ class TestingManager(BaseTestingManager):
             self.set_global_prefix()
 
         self.__bootstrap_infrastructure()
-        self.__destroy_infrastructure()
+
+        if self.__config.destroy_before_preparing:
+            self.__destroy_infrastructure()
+
         self.__create_infrastructure()
 
     def destroy_infrastructure(self) -> None:
