@@ -10,17 +10,15 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 CDK_PATH = f'{os.path.dirname(os.path.abspath(__file__))}'
 
 
-def pytest_sessionstart(session):
+def pytest_configure(*args, **kwargs):
     """
-    Called after the Session object has been created and
-    before performing collection and entering the run test loop.
+    Called after command line options have been parsed and all plugins and initial conftest files been loaded.
     """
     TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).prepare_infrastructure()
 
 
-def pytest_sessionfinish(session, exitstatus):
+def pytest_unconfigure(*args, **kwargs):
     """
-    Called after whole test run finished, right before
-    returning the exit status to the system.
+    Called before test process is exited.
     """
     TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).destroy_infrastructure()

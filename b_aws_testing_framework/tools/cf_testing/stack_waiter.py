@@ -13,6 +13,7 @@ class StackWaiter:
     """
     Waiter class that waits for a cloud formation stack to stabilize.
     """
+
     def __init__(self, stack_name: str):
         self.__stack_name = stack_name
         self.__client = Credentials().boto_session.client('cloudformation')

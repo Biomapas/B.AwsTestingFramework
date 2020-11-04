@@ -19,17 +19,30 @@ class BaseTestingManager(ABC):
         """
         Constructor.
         """
-        self.credentials = credentials
+        self.__credentials = credentials
+
+    @property
+    def credentials(self) -> Credentials:
+        """
+        Property for credentials attribute.
+
+        :return: Credentials.
+        """
+        return self.__credentials
 
     @staticmethod
-    def set_global_prefix(prefix: Optional[str] = None) -> None:
+    def set_global_prefix(prefix: Optional[str] = None, override: bool = True) -> None:
         """
         Sets a global prefix to be used to name resources.
 
         :param prefix: An optional prefix. If the value is not given, a random string is generated.
+        :param override: Specify whether the prefix should be overridden if its already set.
 
         :return: No return.
         """
+        if (override is False) and (BaseTestingManager.is_global_prefix_set() is True):
+            return
+
         prefix = prefix or ''.join(random.choice(
             string.ascii_lowercase + string.ascii_uppercase,
         ) for _ in range(5))
@@ -48,7 +61,7 @@ class BaseTestingManager(ABC):
             raise ValueError('Global prefix is not set!')
 
         with open(BaseTestingManager.__GLOBAL_PREFIX_PATH) as file:
-            prefix = file.read()
+            prefix = str(file.read())
 
         if not prefix:
             raise ValueError('Prefix is empty!')
