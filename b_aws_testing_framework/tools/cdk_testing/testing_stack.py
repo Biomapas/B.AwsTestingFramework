@@ -27,6 +27,8 @@ class TestingStack(Stack):
             export_name=key
         )
 
+    # TODO these need to be static for easy access in tests.
+
     def get_output(self, key: str) -> str:
         return self.load_outputs_cached()[key]
 
