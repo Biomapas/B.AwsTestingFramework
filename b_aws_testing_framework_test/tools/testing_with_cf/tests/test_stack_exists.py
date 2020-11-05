@@ -13,13 +13,11 @@ def test_stack_exists() -> None:
     :return: No return.
     """
     # The stack name is provided by the cf testing manager.
-    STACK_NAME = f'{TestingManager.get_global_prefix()}TestStack'
+    stack_name = f'{TestingManager.get_global_prefix()}TestStack'
 
-    stacks = Credentials().boto_session.client('cloudformation').list_stacks(
-        StackStatusFilter=['CREATE_COMPLETE']
-    )['StackSummaries']
+    client = Credentials().boto_session.client('cloudformation')
+
+    stacks = client.list_stacks(StackStatusFilter=['CREATE_COMPLETE'])['StackSummaries']
     stacks = [stack['StackName'] for stack in stacks]
 
-    logger.info(f'All available stacks: {stacks}.')
-
-    assert STACK_NAME in stacks
+    assert stack_name in stacks

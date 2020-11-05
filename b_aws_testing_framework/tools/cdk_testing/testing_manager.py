@@ -15,6 +15,7 @@ class TestingManager(BaseTestingManager):
     Test manager class which prepares infrastructure for tests.
     After tests are finished, destroys the infrastructure.
     """
+
     def __init__(self, credentials: Credentials, config: CdkToolConfig):
         super().__init__(credentials)
 
@@ -30,9 +31,7 @@ class TestingManager(BaseTestingManager):
 
         :return: No return.
         """
-        if not self.is_global_prefix_set():
-            self.set_global_prefix()
-
+        self.set_global_prefix(override=False)
         self.__bootstrap_infrastructure()
 
         if self.__config.destroy_before_preparing:
@@ -47,7 +46,6 @@ class TestingManager(BaseTestingManager):
         :return: No return.
         """
         self.__destroy_infrastructure()
-
         self.delete_global_prefix()
 
     """

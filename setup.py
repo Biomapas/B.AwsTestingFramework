@@ -31,7 +31,8 @@ setup(
         'boto3>=1.10.46,<1.16.0',
         'pytest>=6.0.2,<7.0.0',
         'pytest-cov>=2.10.1,<3.0.0',
-        'b-continuous-subprocess>=0.0.2,<1.0.0'
+        'b-continuous-subprocess>=0.0.2,<1.0.0',
+        'b-cf-outputs>=0.0.3,<1.0.0'
     ],
     author='Laimonas Sutkus',
     author_email='laimonas.sutkus@biomapas.com',

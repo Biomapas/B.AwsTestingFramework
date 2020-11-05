@@ -16,17 +16,15 @@ logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
 STACK_PATH = f'{os.path.dirname(os.path.abspath(__file__))}/test_stack.yaml'
 
 
-def pytest_sessionstart(session):
+def pytest_configure(*args, **kwargs):
     """
-    Called after the Session object has been created and
-    before performing collection and entering the run test loop.
+    Called after command line options have been parsed and all plugins and initial conftest files been loaded.
     """
     TestingManager(Credentials(), CfToolConfig(STACK_PATH)).prepare_infrastructure()
 
 
-def pytest_sessionfinish(session, exitstatus):
+def pytest_unconfigure(*args, **kwargs):
     """
-    Called after whole test run finished, right before
-    returning the exit status to the system.
+    Called before test process is exited.
     """
     TestingManager(Credentials(), CfToolConfig(STACK_PATH)).destroy_infrastructure()

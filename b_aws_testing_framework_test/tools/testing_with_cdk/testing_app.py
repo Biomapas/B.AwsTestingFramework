@@ -1,14 +1,14 @@
 import os
 import sys
 
+from os.path import dirname as dn
 from aws_cdk.core import App
 
 """
 Import main stack.
 """
 
-ROOT_PATH = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
-sys.path.append(ROOT_PATH)
+sys.path.append(dn(dn(dn(dn(os.path.abspath(__file__))))))
 from b_aws_testing_framework_test.tools.testing_with_cdk.testing_infrastructure import TestingInfrastructure
 
 """

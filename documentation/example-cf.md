@@ -25,11 +25,11 @@ from b_aws_testing_framework.tools.cf_testing.cf_tool_config import CfToolConfig
 from b_aws_testing_framework.tools.cf_testing.testing_manager import TestingManager
 
 
-def pytest_sessionstart(session):
+def pytest_configure(*args, **kwargs):
     TestingManager(Credentials(), CfToolConfig('.')).prepare_infrastructure()
 
 
-def pytest_sessionfinish(session, exitstatus):
+def pytest_unconfigure(*args, **kwargs):
     TestingManager(Credentials(), CfToolConfig('.')).destroy_infrastructure()
 
 ```

@@ -2,6 +2,7 @@ class CdkToolConfig:
     """
     Configuration class for aws cdk tool.
     """
+
     def __init__(
             self,
             cdk_app_path: str,
