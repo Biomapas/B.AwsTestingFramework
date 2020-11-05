@@ -1,5 +1,12 @@
 # Release history
 
+### 0.0.13
+* Add testing stack for more convenient CF outputs management.
+* Update documentation.
+* Add docstrings.
+* Updates tests and conftest configuration files.
+* Version bump.
+
 ### 0.0.12
 * Add a flag to specify whether the infrastructure should be destroyed
 before creating a new one.
