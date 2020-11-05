@@ -15,6 +15,7 @@ class TestingManager(BaseTestingManager):
     Test manager class which prepares infrastructure for tests.
     After tests are finished, destroys the infrastructure.
     """
+
     def __init__(self, credentials: Credentials, config: CdkToolConfig):
         super().__init__(credentials)
 

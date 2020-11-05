@@ -26,12 +26,23 @@ from b_aws_testing_framework.tools.cdk_testing.cdk_tool_config import CdkToolCon
 from b_aws_testing_framework.tools.cdk_testing.testing_manager import TestingManager
 
 
-def pytest_sessionstart(session):
+def pytest_configure(*args, **kwargs):
     TestingManager(Credentials(), CdkToolConfig('.')).prepare_infrastructure()
 
 
-def pytest_sessionfinish(session, exitstatus):
+def pytest_unconfigure(*args, **kwargs):
     TestingManager(Credentials(), CdkToolConfig('.')).destroy_infrastructure()
+```
+
+The `app.py` file may contain an additional root stack which should be `TestingStack`.
+
+```python
+from aws_cdk.core import App
+from b_aws_testing_framework.tools.cdk_testing.testing_stack import TestingStack
+
+app = App()
+TestingStack(app)
+app.synth()
 ```
 
 Now create some tests, for example:
