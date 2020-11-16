@@ -29,8 +29,8 @@ jobs:
           export AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}
           export AWS_DEFAULT_REGION=${{ secrets.AWS_DEFAULT_REGION }}
 
-          pytest --cov=b_aws_testing_framework b_aws_testing_framework_test/tools/testing_with_cf
-          pytest --cov=b_aws_testing_framework b_aws_testing_framework_test/tools/testing_with_cdk
+          pytest b_aws_testing_framework_test/tools/testing_with_cf
+          pytest b_aws_testing_framework_test/tools/testing_with_cdk
 
       - name: Install
         run: pip install wheel twine
