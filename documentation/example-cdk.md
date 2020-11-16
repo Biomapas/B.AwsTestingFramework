@@ -25,24 +25,50 @@ from b_aws_testing_framework.credentials import Credentials
 from b_aws_testing_framework.tools.cdk_testing.cdk_tool_config import CdkToolConfig
 from b_aws_testing_framework.tools.cdk_testing.testing_manager import TestingManager
 
+# Usually, your cdk configuration files are going to be in the same directory
+# as the conftest.py file.
+import os
+CDK_PATH = f'{os.path.dirname(os.path.abspath(__file__))}'
+
 
 def pytest_configure(*args, **kwargs):
-    TestingManager(Credentials(), CdkToolConfig('.')).prepare_infrastructure()
+    TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).prepare_infrastructure()
 
 
 def pytest_unconfigure(*args, **kwargs):
-    TestingManager(Credentials(), CdkToolConfig('.')).destroy_infrastructure()
+    TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).destroy_infrastructure()
 ```
 
-The `app.py` file may contain an additional root stack which should be `TestingStack`.
+The `app.py` file may contain an additional root stack which should be `TestingStack` or at least inherit from it.
 
 ```python
 from aws_cdk.core import App
 from b_aws_testing_framework.tools.cdk_testing.testing_stack import TestingStack
 
+# To import stacks from your project, make sure to append your project's root directory.
+import os
+import sys
+# Usually it is one level below, but adjust this to your needs.
+root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(root_dir)
+
+# Initiate CDK applications and synthesize it.
 app = App()
 TestingStack(app)
 app.synth()
+```
+
+The `cdk.json` file can remain untouched. Sample file:
+
+```json
+{
+  "app": "python app.py",
+  "context": {
+    "@aws-cdk/core:enableStackNameDuplicates": "true",
+    "aws-cdk:enableDiffNoFail": "true",
+    "@aws-cdk/core:stackRelativeExports": "true"
+  }
+}
 ```
 
 Now create some tests, for example:
