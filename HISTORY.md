@@ -1,5 +1,10 @@
 # Release history
 
+### 0.0.17
+* Improve documentation with better cdk project examples.
+* Add an example cdk project.
+* Remove test coverage.
+
 ### 0.0.13
 * Add testing stack for more convenient CF outputs management.
 * Update documentation.
