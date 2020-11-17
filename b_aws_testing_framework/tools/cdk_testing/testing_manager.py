@@ -26,7 +26,11 @@ class TestingManager(BaseTestingManager):
         if self.__config.project_root_path:
             sys.path.append(self.__config.project_root_path)
 
-        self.__env = {**os.environ.copy(), **(self.credentials.environ or {})}
+        self.__env = {
+            **(self.credentials.environ or {}),
+            **os.environ.copy(),
+            **{'PYTHONPATH': ':'.join(sys.path)}
+        }
 
     def prepare_infrastructure(self) -> None:
         """

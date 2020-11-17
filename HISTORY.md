@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.19
+* Make sure that Python path is propagated to the process.
+
 ### 0.0.18
 * Expose global prefix in the Testing stack.
 * Update example project.
