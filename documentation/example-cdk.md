@@ -29,23 +29,16 @@ from b_aws_testing_framework.tools.cdk_testing.cdk_tool_config import CdkToolCon
 from b_aws_testing_framework.tools.cdk_testing.testing_manager import TestingManager
 
 # Usually, your cdk configuration files are going to be in the same directory as the conftest.py file.
-# By following an example project structure, the cdk and the root path are:
+# By following an example project structure, the cdk path is:
 CDK_PATH = os.path.dirname(os.path.abspath(__file__))
-ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def pytest_configure(*args, **kwargs):
-    TestingManager(Credentials(), CdkToolConfig(
-        cdk_app_path=CDK_PATH,
-        project_root_path=ROOT_PATH
-    )).prepare_infrastructure()
+    TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).prepare_infrastructure()
 
 
 def pytest_unconfigure(*args, **kwargs):
-    TestingManager(Credentials(), CdkToolConfig(
-        cdk_app_path=CDK_PATH,
-        project_root_path=ROOT_PATH
-    )).destroy_infrastructure()
+    TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).destroy_infrastructure()
 ```
 
 The `app.py` file may contain an additional root stack which should be `TestingStack` or at least inherit from it.

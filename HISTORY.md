@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.20
+* Remove root path from cdk config in the documentation.
+
 ### 0.0.19
 * Make sure that Python path is propagated to the process.
 
