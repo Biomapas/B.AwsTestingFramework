@@ -24,8 +24,8 @@ class TestingStack(Stack):
 
         super().__init__(
             scope=scope,
-            id=f'{TestingManager.get_global_prefix()}TestingStack',
-            stack_name=f'{TestingManager.get_global_prefix()}TestingStack'
+            id=self.name(),
+            stack_name=self.name()
         )
 
     def add_output(self, key: str, value: str) -> None:
@@ -45,13 +45,22 @@ class TestingStack(Stack):
         )
 
     @staticmethod
+    def global_prefix() -> str:
+        """
+        Returns an already set global prefix.
+
+        :return: Global prefix.
+        """
+        return TestingManager.get_global_prefix()
+
+    @staticmethod
     def name() -> str:
         """
         Default name of this testing stack.
 
         :return: Stack name.
         """
-        return f'{TestingManager.get_global_prefix()}TestingStack'
+        return f'{TestingStack.global_prefix()}TestingStack'
 
     """
     Methods that should only be used in tests.

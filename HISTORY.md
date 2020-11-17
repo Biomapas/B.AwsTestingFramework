@@ -1,5 +1,12 @@
 # Release history
 
+### 0.0.18
+* Expose global prefix in the Testing stack.
+* Update example project.
+* Add ability to specify root project to fix import errors.
+* Updated tests.
+* Update documentation.
+
 ### 0.0.17
 * Improve documentation with better cdk project examples.
 * Add an example cdk project.

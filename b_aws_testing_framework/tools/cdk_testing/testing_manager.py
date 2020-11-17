@@ -1,5 +1,6 @@
 import logging
 import os
+import sys
 
 from b_continuous_subprocess.continuous_subprocess import ContinuousSubprocess
 
@@ -20,6 +21,11 @@ class TestingManager(BaseTestingManager):
         super().__init__(credentials)
 
         self.__config = config
+
+        # Ensure that project root is accessible for cdk process.
+        if self.__config.project_root_path:
+            sys.path.append(self.__config.project_root_path)
+
         self.__env = {**os.environ.copy(), **(self.credentials.environ or {})}
 
     def prepare_infrastructure(self) -> None:

@@ -1,6 +1,7 @@
 ### Testing infrastructure based on AWS CDK
 
-An example file structure of your project could look like this:
+An example file structure of your project could look something like given below. The main idea is two have two 
+directories: one for project files and one for testing files.
 
 ```text
 - your-project-root             # Project root.
@@ -21,22 +22,30 @@ file to configure testing behaviour. The basic contents of the file could
 look like this:
 
 ```python
+import os
+
 from b_aws_testing_framework.credentials import Credentials
 from b_aws_testing_framework.tools.cdk_testing.cdk_tool_config import CdkToolConfig
 from b_aws_testing_framework.tools.cdk_testing.testing_manager import TestingManager
 
-# Usually, your cdk configuration files are going to be in the same directory
-# as the conftest.py file.
-import os
-CDK_PATH = f'{os.path.dirname(os.path.abspath(__file__))}'
+# Usually, your cdk configuration files are going to be in the same directory as the conftest.py file.
+# By following an example project structure, the cdk and the root path are:
+CDK_PATH = os.path.dirname(os.path.abspath(__file__))
+ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def pytest_configure(*args, **kwargs):
-    TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).prepare_infrastructure()
+    TestingManager(Credentials(), CdkToolConfig(
+        cdk_app_path=CDK_PATH,
+        project_root_path=ROOT_PATH
+    )).prepare_infrastructure()
 
 
 def pytest_unconfigure(*args, **kwargs):
-    TestingManager(Credentials(), CdkToolConfig(CDK_PATH)).destroy_infrastructure()
+    TestingManager(Credentials(), CdkToolConfig(
+        cdk_app_path=CDK_PATH,
+        project_root_path=ROOT_PATH
+    )).destroy_infrastructure()
 ```
 
 The `app.py` file may contain an additional root stack which should be `TestingStack` or at least inherit from it.
@@ -44,13 +53,6 @@ The `app.py` file may contain an additional root stack which should be `TestingS
 ```python
 from aws_cdk.core import App
 from b_aws_testing_framework.tools.cdk_testing.testing_stack import TestingStack
-
-# To import stacks from your project, make sure to append your project's root directory.
-import os
-import sys
-# Usually it is one level below, but adjust this to your needs.
-root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(root_dir)
 
 # Initiate CDK applications and synthesize it.
 app = App()
