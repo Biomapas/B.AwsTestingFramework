@@ -14,11 +14,13 @@ class Credentials:
             self,
             aws_access_key_id: Optional[str] = os.environ.get('AWS_ACCESS_KEY_ID'),
             aws_secret_access_key: Optional[str] = os.environ.get('AWS_SECRET_ACCESS_KEY'),
+            aws_session_token: Optional[str] = os.environ.get('AWS_SESSION_TOKEN'),
             profile_name: Optional[str] = os.environ.get('AWS_PROFILE'),
             region_name: Optional[str] = os.environ.get('AWS_DEFAULT_REGION'),
     ) -> None:
         self.aws_access_key_id = aws_access_key_id
         self.aws_secret_access_key = aws_secret_access_key
+        self.aws_session_token = aws_session_token
         self.profile_name = profile_name
         self.region_name = region_name
 
@@ -32,6 +34,7 @@ class Credentials:
         return boto3.session.Session(
             aws_access_key_id=self.aws_access_key_id,
             aws_secret_access_key=self.aws_secret_access_key,
+            aws_session_token=self.aws_session_token,
             profile_name=self.profile_name,
             region_name=self.region_name
         )
@@ -46,6 +49,7 @@ class Credentials:
         return {key: value for key, value in {
             'AWS_ACCESS_KEY_ID': self.aws_access_key_id,
             'AWS_SECRET_ACCESS_KEY': self.aws_secret_access_key,
+            'AWS_SESSION_TOKEN': self.aws_session_token,
             'AWS_PROFILE': self.profile_name,
             'AWS_DEFAULT_REGION': self.region_name
         }.items() if value} or None
