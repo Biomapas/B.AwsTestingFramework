@@ -1,6 +1,7 @@
 from aws_cdk.core import Construct
-from example_package.example_stack import ExampleStack
 from b_aws_testing_framework.tools.cdk_testing.testing_stack import TestingStack
+
+from example_package.example_stack import ExampleStack
 
 
 class Infrastructure(TestingStack):

@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.23
+* Prettify example CDK project.
+
 ### 0.0.22
 * Add prefixes for CF outputs too.
 * Prettify CDK testing.

@@ -1,10 +1,9 @@
-from aws_cdk.core import Stack
 from aws_cdk.aws_apigateway import LambdaRestApi
 from aws_cdk.aws_lambda import Function, Code, Runtime
+from aws_cdk.core import Stack
 
 
 class ExampleStack(Stack):
-
     def __init__(self, scope: Stack, prefix: str) -> None:
         stack_name = f'{prefix}ExampleStack'
         super().__init__(scope, id=stack_name, stack_name=stack_name)

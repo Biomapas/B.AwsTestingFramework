@@ -15,7 +15,7 @@ setuptools.setup(
     package_dir={"": "example_package"},
     packages=setuptools.find_packages(where="example_package"),
     install_requires=[
-        "b-aws-testing-framework==0.0.22",
+        "b-aws-testing-framework==0.0.23",
         "aws-cdk.core==1.73.0",
         "aws-cdk.aws-apigateway==1.73.0",
         "aws-cdk.aws-lambda==1.73.0",
