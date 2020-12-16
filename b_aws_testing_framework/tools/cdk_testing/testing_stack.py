@@ -39,9 +39,9 @@ class TestingStack(Stack):
         """
         CfnOutput(
             scope=self,
-            id=key,
+            id=f'{self.global_prefix()}{key}',
+            export_name=f'{self.global_prefix()}{key}',
             value=value,
-            export_name=key
         )
 
     @staticmethod
@@ -76,7 +76,7 @@ class TestingStack(Stack):
 
         :return: Output value.
         """
-        return TestingStack.load_outputs_cached(credentials)[key]
+        return TestingStack.load_outputs_cached(credentials)[f'{TestingStack.global_prefix()}{key}']
 
     @staticmethod
     @lru_cache(maxsize=None)

@@ -1,5 +1,9 @@
 # Release history
 
+### 0.0.22
+* Add prefixes for CF outputs too.
+* Prettify CDK testing.
+
 ### 0.0.21
 * Add ability to specify session token.
 

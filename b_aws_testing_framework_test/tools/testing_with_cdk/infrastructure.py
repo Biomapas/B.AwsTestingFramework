@@ -3,9 +3,10 @@ from aws_cdk.core import Construct
 from b_aws_testing_framework.tools.cdk_testing.testing_stack import TestingStack
 
 
-class TestingInfrastructure(TestingStack):
+class Infrastructure(TestingStack):
     """
-    This is an entry point for your infrastructure. Create other resources and stacks you want to test here.
+    This is an entry point for your infrastructure.
+    Create other resources and stacks you want to test here.
     """
 
     def __init__(self, scope: Construct):
