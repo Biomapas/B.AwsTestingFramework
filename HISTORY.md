@@ -1,5 +1,8 @@
 # Release history
 
+### 0.0.24
+* Update boto version requirement.
+
 ### 0.0.23
 * Prettify example CDK project.
 
