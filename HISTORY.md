@@ -1,5 +1,8 @@
 # Release history
 
+### 0.1.0
+* Allow to override the TestingStack's name.
+
 ### 0.0.24
 * Update boto version requirement.
 
