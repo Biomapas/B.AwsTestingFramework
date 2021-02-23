@@ -39,7 +39,7 @@ class TestingStack(Stack):
         """
         CfnOutput(
             scope=self,
-            id=f'{self.global_prefix()}{key}',
+            id=f'{self.global_prefix()}{self.name()}{key}',
             export_name=f'{self.global_prefix()}{key}',
             value=value,
         )
@@ -66,8 +66,8 @@ class TestingStack(Stack):
     Methods that should only be used in tests.
     """
 
-    @staticmethod
-    def get_output(key: str, credentials: Optional[Credentials] = None) -> str:
+    @classmethod
+    def get_output(cls, key: str, credentials: Optional[Credentials] = None) -> str:
         """
         Loads this stack's outputs and creates a corresponding one.
 
@@ -76,11 +76,11 @@ class TestingStack(Stack):
 
         :return: Output value.
         """
-        return TestingStack.load_outputs_cached(credentials)[f'{TestingStack.global_prefix()}{key}']
+        return cls.load_outputs_cached(credentials)[f'{cls.global_prefix()}{cls.name()}{key}']
 
-    @staticmethod
+    @classmethod
     @lru_cache(maxsize=None)
-    def load_outputs_cached(credentials: Optional[Credentials] = None) -> Dict[str, str]:
+    def load_outputs_cached(cls, credentials: Optional[Credentials] = None) -> Dict[str, str]:
         """
         Loads and caches (for better performance) this stack's outputs.
 
@@ -88,10 +88,10 @@ class TestingStack(Stack):
 
         :return: All outputs in a form of a dictionary.
         """
-        return TestingStack.load_outputs(credentials)
+        return cls.load_outputs(credentials)
 
-    @staticmethod
-    def load_outputs(credentials: Optional[Credentials] = None) -> Dict[str, str]:
+    @classmethod
+    def load_outputs(cls, credentials: Optional[Credentials] = None) -> Dict[str, str]:
         """
         Loads this stack's outputs.
 
@@ -100,4 +100,4 @@ class TestingStack(Stack):
         :return: All outputs in a form of a dictionary.
         """
         credentials = credentials or Credentials()
-        return CfOutputs(credentials.boto_session).get_outputs(TestingStack.name())[TestingStack.name()]
+        return CfOutputs(credentials.boto_session).get_outputs(cls.name())[cls.name()]
