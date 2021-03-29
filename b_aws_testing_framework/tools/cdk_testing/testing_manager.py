@@ -53,13 +53,17 @@ class TestingManager(BaseTestingManager):
         else:
             self.__create_infrastructure()
 
-    def destroy_infrastructure(self) -> None:
+    def destroy_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
         """
         Destroys the infrastructure.
 
         :return: No return.
         """
-        self.__destroy_infrastructure()
+        if custom_action:
+            custom_action()
+        else:
+            self.__destroy_infrastructure()
+
         self.delete_global_prefix()
 
     """

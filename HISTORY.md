@@ -1,7 +1,10 @@
 # Release history
 
+### 0.3.0
+* Add ability to specify custom deployment command in AWS CDK flow (destroy action).
+
 ### 0.2.0
-* Add ability to specify custom deployment command in AWS CDK flow.
+* Add ability to specify custom deployment command in AWS CDK flow (deploy action).
 
 ### 0.1.0
 * Allow to override the TestingStack's name.

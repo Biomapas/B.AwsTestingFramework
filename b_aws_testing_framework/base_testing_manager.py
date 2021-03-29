@@ -99,7 +99,7 @@ class BaseTestingManager(ABC):
         pass
 
     @abstractmethod
-    def destroy_infrastructure(self) -> None:
+    def destroy_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
         """
         Function to destroy the infrastructure.
 

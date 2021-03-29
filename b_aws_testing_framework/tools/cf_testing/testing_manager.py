@@ -31,18 +31,21 @@ class TestingManager(BaseTestingManager):
         :return: No return.
         """
         if custom_action:
-            raise NotImplemented()
+            raise NotImplementedError()
 
         self.set_global_prefix(override=False)
         self.__destroy_infrastructure()
         self.__create_infrastructure()
 
-    def destroy_infrastructure(self) -> None:
+    def destroy_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
         """
         Destroys the infrastructure.
         
         :return: No return.
         """
+        if custom_action:
+            raise NotImplementedError()
+
         self.__destroy_infrastructure()
         self.delete_global_prefix()
 
