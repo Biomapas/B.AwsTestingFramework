@@ -4,7 +4,7 @@ import tempfile
 import os.path
 import os
 from abc import ABC, abstractmethod
-from typing import Optional
+from typing import Optional, Callable, Any
 
 from b_aws_testing_framework.credentials import Credentials
 
@@ -90,7 +90,7 @@ class BaseTestingManager(ABC):
         return os.path.isfile(BaseTestingManager.__GLOBAL_PREFIX_PATH)
 
     @abstractmethod
-    def prepare_infrastructure(self) -> None:
+    def prepare_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
         """
         Function to create and prepare infrastructure for testing.
 

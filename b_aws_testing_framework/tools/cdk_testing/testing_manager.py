@@ -1,6 +1,8 @@
 import logging
 import os
 import sys
+from collections import Callable
+from typing import Any, Optional
 
 from b_continuous_subprocess.continuous_subprocess import ContinuousSubprocess
 
@@ -32,7 +34,7 @@ class TestingManager(BaseTestingManager):
             **{'PYTHONPATH': ':'.join(sys.path)}
         }
 
-    def prepare_infrastructure(self) -> None:
+    def prepare_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
         """
         Prepares infrastructure to run tests.
         Firstly, the infrastructure is boot-strapped.
@@ -47,7 +49,10 @@ class TestingManager(BaseTestingManager):
         if self.__config.destroy_before_preparing:
             self.__destroy_infrastructure()
 
-        self.__create_infrastructure()
+        if custom_action:
+            custom_action()
+        else:
+            self.__create_infrastructure()
 
     def destroy_infrastructure(self) -> None:
         """

@@ -1,4 +1,5 @@
 import logging
+from typing import Optional, Callable, Any
 
 from botocore.exceptions import ClientError
 
@@ -21,7 +22,7 @@ class TestingManager(BaseTestingManager):
 
         self.__config = config
 
-    def prepare_infrastructure(self) -> None:
+    def prepare_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
         """
         Prepares infrastructure to run tests.
         Firstly, the infrastructure is destroyed (if any leftovers exist).
@@ -29,6 +30,9 @@ class TestingManager(BaseTestingManager):
 
         :return: No return.
         """
+        if custom_action:
+            raise NotImplemented()
+
         self.set_global_prefix(override=False)
         self.__destroy_infrastructure()
         self.__create_infrastructure()
