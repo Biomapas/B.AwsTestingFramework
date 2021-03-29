@@ -1,8 +1,7 @@
 import logging
 import os
 import sys
-from collections import Callable
-from typing import Any, Optional
+from typing import Any, Optional, Callable
 
 from b_continuous_subprocess.continuous_subprocess import ContinuousSubprocess
 
