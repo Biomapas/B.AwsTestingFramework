@@ -1,5 +1,10 @@
 # Release history
 
+### 0.3.3.
+* Fix logging issues.
+* Run prehooks on session-start and session-finish.
+* Add more logging.
+
 ### 0.3.2
 * Fix warnings. 
 

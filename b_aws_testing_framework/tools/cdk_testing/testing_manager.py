@@ -42,10 +42,14 @@ class TestingManager(BaseTestingManager):
 
         :return: No return.
         """
+        logger.info('Setting global prefix (not overriding an existing one)...')
         self.set_global_prefix(override=False)
+
+        logger.info('Bootstrapping the infrastructure...')
         self.__bootstrap_infrastructure()
 
         if self.__config.destroy_before_preparing:
+            logger.info('Destroying the infrastructure before creating a new one...')
             self.__destroy_infrastructure()
 
         if custom_action:
@@ -73,17 +77,17 @@ class TestingManager(BaseTestingManager):
     def __bootstrap_infrastructure(self) -> None:
         sub = ContinuousSubprocess(TestingManager.__aws_cdk_bootstrap_command())
         output = sub.execute(path=self.__config.cdk_app_path, env=self.__env)
-        for line in output: logger.info(line)
+        for line in output: logger.info(line.strip())
 
     def __create_infrastructure(self) -> None:
         sub = ContinuousSubprocess(TestingManager.__aws_cdk_deploy_command())
         output = sub.execute(path=self.__config.cdk_app_path, env=self.__env)
-        for line in output: logger.info(line)
+        for line in output: logger.info(line.strip())
 
     def __destroy_infrastructure(self) -> None:
         sub = ContinuousSubprocess(TestingManager.__aws_cdk_destroy_command())
         output = sub.execute(path=self.__config.cdk_app_path, env=self.__env)
-        for line in output: logger.info(line)
+        for line in output: logger.info(line.strip())
 
     """
     CDK Commands.

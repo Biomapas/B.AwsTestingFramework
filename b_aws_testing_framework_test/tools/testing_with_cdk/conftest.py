@@ -9,7 +9,7 @@ CDK_PATH = dirn(apat(__file__))
 MANAGER = TestingManager(Credentials(), CdkToolConfig(CDK_PATH))
 
 
-def pytest_configure(*args, **kwargs):
+def pytest_sessionstart(*args, **kwargs):
     """
     Called after command line options have been parsed and
     all plugins and initial conftest files been loaded.
@@ -18,7 +18,7 @@ def pytest_configure(*args, **kwargs):
     MANAGER.prepare_infrastructure()
 
 
-def pytest_unconfigure(*args, **kwargs):
+def pytest_sessionfinish(*args, **kwargs):
     """
     Called before test process is exited.
     """
