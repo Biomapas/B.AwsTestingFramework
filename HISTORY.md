@@ -1,5 +1,8 @@
 # Release history
 
+### 0.4.2
+* For the default SSM parameter name use "name" instead of "global prefix".
+
 ### 0.4.1
 * Make sure default SSM parameter is unique.
 
