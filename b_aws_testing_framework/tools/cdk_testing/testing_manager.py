@@ -27,18 +27,26 @@ class TestingManager(BaseTestingManager):
         if self.__config.project_root_path:
             sys.path.append(self.__config.project_root_path)
 
-        self.__env = {
+        # Additional process environment context.
+        __additional_env = {
             **(self.credentials.environ or {}),
             **os.environ.copy(),
             **{'PYTHONPATH': ':'.join(sys.path)}
         }
 
-    def prepare_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
+        # Update the config environment with additional process environment context.
+        for key, value in __additional_env.items():
+            if config.deployment_process_environment.get(key) is None:
+                config.deployment_process_environment[key] = value
+
+    def prepare_infrastructure(self, custom_deploy_action: Optional[Callable[[CdkToolConfig], Any]] = None) -> None:
         """
         Prepares infrastructure to run tests.
         Firstly, the infrastructure is boot-strapped.
         Secondly, the infrastructure is destroyed (if any leftovers exist).
         Thirdly, the infrastructure is created.
+
+        :param custom_deploy_action: Read more about this parameter in parent class.
 
         :return: No return.
         """
@@ -52,19 +60,21 @@ class TestingManager(BaseTestingManager):
             logger.info('Destroying the infrastructure before creating a new one...')
             self.__destroy_infrastructure()
 
-        if custom_action:
-            custom_action()
+        if custom_deploy_action:
+            custom_deploy_action(self.__config)
         else:
             self.__create_infrastructure()
 
-    def destroy_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
+    def destroy_infrastructure(self, custom_destroy_action: Optional[Callable[[CdkToolConfig], Any]] = None) -> None:
         """
         Destroys the infrastructure.
 
+        :param custom_destroy_action: Read more about this parameter in parent class.
+
         :return: No return.
         """
-        if custom_action:
-            custom_action()
+        if custom_destroy_action:
+            custom_destroy_action(self.__config)
         else:
             self.__destroy_infrastructure()
 
@@ -76,17 +86,17 @@ class TestingManager(BaseTestingManager):
 
     def __bootstrap_infrastructure(self) -> None:
         sub = ContinuousSubprocess(TestingManager.__aws_cdk_bootstrap_command())
-        output = sub.execute(path=self.__config.cdk_app_path, env=self.__env)
+        output = sub.execute(path=self.__config.cdk_app_path, env=self.__config.deployment_process_environment)
         for line in output: logger.info(line.strip())
 
     def __create_infrastructure(self) -> None:
         sub = ContinuousSubprocess(TestingManager.__aws_cdk_deploy_command())
-        output = sub.execute(path=self.__config.cdk_app_path, env=self.__env)
+        output = sub.execute(path=self.__config.cdk_app_path, env=self.__config.deployment_process_environment)
         for line in output: logger.info(line.strip())
 
     def __destroy_infrastructure(self) -> None:
         sub = ContinuousSubprocess(TestingManager.__aws_cdk_destroy_command())
-        output = sub.execute(path=self.__config.cdk_app_path, env=self.__env)
+        output = sub.execute(path=self.__config.cdk_app_path, env=self.__config.deployment_process_environment)
         for line in output: logger.info(line.strip())
 
     """

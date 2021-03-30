@@ -22,7 +22,7 @@ class TestingManager(BaseTestingManager):
 
         self.__config = config
 
-    def prepare_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
+    def prepare_infrastructure(self, custom_deploy_action: Optional[Callable[[Any], Any]] = None) -> None:
         """
         Prepares infrastructure to run tests.
         Firstly, the infrastructure is destroyed (if any leftovers exist).
@@ -30,20 +30,20 @@ class TestingManager(BaseTestingManager):
 
         :return: No return.
         """
-        if custom_action:
+        if custom_deploy_action:
             raise NotImplementedError()
 
         self.set_global_prefix(override=False)
         self.__destroy_infrastructure()
         self.__create_infrastructure()
 
-    def destroy_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
+    def destroy_infrastructure(self, custom_destroy_action: Optional[Callable[[Any], Any]] = None) -> None:
         """
         Destroys the infrastructure.
         
         :return: No return.
         """
-        if custom_action:
+        if custom_destroy_action:
             raise NotImplementedError()
 
         self.__destroy_infrastructure()

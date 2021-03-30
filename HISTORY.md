@@ -1,5 +1,8 @@
 # Release history
 
+### 0.5.0
+* Pass config object to custom actions.
+
 ### 0.4.3
 * Fix version retrieval.
 

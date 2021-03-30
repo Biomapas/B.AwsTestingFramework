@@ -90,18 +90,30 @@ class BaseTestingManager(ABC):
         return os.path.isfile(BaseTestingManager.__GLOBAL_PREFIX_PATH)
 
     @abstractmethod
-    def prepare_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
+    def prepare_infrastructure(self, custom_deploy_action: Optional[Callable[[Any], Any]] = None) -> None:
         """
         Function to create and prepare infrastructure for testing.
+
+        :param custom_deploy_action: Each child class implements their own deployment functionality. However,
+        a client can override such functionality with a custom deploy action. A custom deploy action should be
+        responsible just for the infrastructure creation. The custom deploy action should be a callable
+        function that takes a configuration object as a parameter. A configuration object is up to each
+        child class to define.
 
         :return: No return.
         """
         pass
 
     @abstractmethod
-    def destroy_infrastructure(self, custom_action: Optional[Callable[[], Any]] = None) -> None:
+    def destroy_infrastructure(self, custom_destroy_action: Optional[Callable[[Any], Any]] = None) -> None:
         """
         Function to destroy the infrastructure.
+
+        :param custom_destroy_action: Each child class implements their own destroy functionality. However,
+        a client can override such functionality with a custom destroy action. A custom destroy action should be
+        responsible just for the infrastructure destruction. The custom destroy action should be a callable
+        function that takes a configuration object as a parameter. A configuration object is up to each
+        child class to define.
 
         :return: No return.
         """
