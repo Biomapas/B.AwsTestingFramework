@@ -1,5 +1,8 @@
 # Release history
 
+### 0.4.0
+* Add default SSM parameter for package version.
+
 ### 0.3.3.
 * Fix logging issues.
 * Run prehooks on session-start and session-finish.

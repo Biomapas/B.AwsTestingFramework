@@ -27,7 +27,8 @@ setup(
     long_description_content_type='text/markdown',
     include_package_data=True,
     install_requires=[
-        'aws-cdk.core>=1.54.0,<2.0.0',
+        'aws-cdk.core>=1.50.0,<2.0.0',
+        'aws-cdk.aws-ssm>=1.50.0,<2.0.0',
         'boto3>=1.16.0,<2.0.0',
         'pytest>=6.0.2,<7.0.0',
         'b-continuous-subprocess>=0.3.2,<1.0.0',
