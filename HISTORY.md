@@ -1,5 +1,8 @@
 # Release history
 
+### 0.4.1
+* Make sure default SSM parameter is unique.
+
 ### 0.4.0
 * Add default SSM parameter for package version.
 

@@ -32,8 +32,8 @@ class TestingStack(Stack):
 
         self.b_aws_testing_framework_version_ssm_parameter = StringParameter(
             scope=self,
-            id='B.AwsTestingFramework.Version',
-            parameter_name='B.AwsTestingFramework.Version',
+            id=f'{self.global_prefix()}B.AwsTestingFramework.Version',
+            parameter_name=f'{self.global_prefix()}B.AwsTestingFramework.Version',
             string_value=str(b_aws_testing_framework_version)
         )
 
