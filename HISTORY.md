@@ -1,5 +1,8 @@
 # Release history
 
+### 0.4.3
+* Fix version retrieval.
+
 ### 0.4.2
 * For the default SSM parameter name use "name" instead of "global prefix".
 

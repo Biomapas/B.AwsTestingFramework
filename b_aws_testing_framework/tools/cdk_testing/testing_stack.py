@@ -3,11 +3,11 @@ from typing import Dict, Optional
 
 from aws_cdk.aws_ssm import StringParameter
 from aws_cdk.core import Stack, Construct, CfnOutput
+from b_cf_outputs.cf_outputs import CfOutputs
 
 from b_aws_testing_framework import b_aws_testing_framework_version
 from b_aws_testing_framework.credentials import Credentials
 from b_aws_testing_framework.tools.cdk_testing.testing_manager import TestingManager
-from b_cf_outputs.cf_outputs import CfOutputs
 
 
 class TestingStack(Stack):
