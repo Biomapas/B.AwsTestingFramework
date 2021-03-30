@@ -1,5 +1,8 @@
 # Release history
 
+### 0.3.1
+* Bug fixes.
+
 ### 0.3.0
 * Add ability to specify custom deployment command in AWS CDK flow (destroy action).
 
