@@ -1,7 +1,6 @@
 import logging
 import os
 import sys
-from os.path import abspath, dirname, join
 from typing import Any, Optional, Callable
 
 from b_continuous_subprocess.continuous_subprocess import ContinuousSubprocess
@@ -106,20 +105,12 @@ class TestingManager(BaseTestingManager):
 
     @classmethod
     def __aws_cdk_bootstrap_command(cls) -> str:
-        return f'. {cls.custom_cdk_command()} bootstrap'
+        return f'cdk bootstrap'
 
     @classmethod
     def __aws_cdk_deploy_command(cls) -> str:
-        return f'. {cls.custom_cdk_command()} deploy --all --require-approval never'
+        return f'cdk deploy --all --require-approval never'
 
     @classmethod
     def __aws_cdk_destroy_command(cls) -> str:
-        return f'. {cls.custom_cdk_command()} destroy --all --require-approval never --force'
-
-    """
-    Helpers.
-    """
-
-    @classmethod
-    def custom_cdk_command(cls) -> str:
-        return join(abspath(dirname(__file__)), 'custom_cdk.sh')
+        return f'cdk destroy --all --require-approval never --force'

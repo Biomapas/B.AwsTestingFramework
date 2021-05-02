@@ -1,5 +1,8 @@
 # Release history
 
+### 0.6.0
+* Too many bugs. Revert.
+
 ### 0.5.5
 * Warn if not cdk tool was found.
 
