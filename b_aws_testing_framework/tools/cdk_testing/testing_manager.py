@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+from os.path import abspath, dirname, join
 from typing import Any, Optional, Callable
 
 from b_continuous_subprocess.continuous_subprocess import ContinuousSubprocess
@@ -103,14 +104,22 @@ class TestingManager(BaseTestingManager):
     CDK Commands.
     """
 
-    @staticmethod
-    def __aws_cdk_bootstrap_command() -> str:
-        return 'cdk bootstrap'
+    @classmethod
+    def __aws_cdk_bootstrap_command(cls) -> str:
+        return f'{cls.custom_cdk_command()} bootstrap'
 
-    @staticmethod
-    def __aws_cdk_deploy_command() -> str:
-        return 'cdk deploy "*" --require-approval never'
+    @classmethod
+    def __aws_cdk_deploy_command(cls) -> str:
+        return f'{cls.custom_cdk_command()} deploy "*" --require-approval never'
 
-    @staticmethod
-    def __aws_cdk_destroy_command() -> str:
-        return 'cdk destroy "*" --require-approval never --force'
+    @classmethod
+    def __aws_cdk_destroy_command(cls) -> str:
+        return f'{cls.custom_cdk_command()} destroy "*" --require-approval never --force'
+
+    """
+    Helpers.
+    """
+
+    @classmethod
+    def custom_cdk_command(cls) -> str:
+        return join(abspath(dirname(__file__)), 'custom_cdk.sh')

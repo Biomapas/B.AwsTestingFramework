@@ -4,3 +4,4 @@ include README.md
 include HISTORY.md
 
 recursive-include b_aws_testing_framework *.py
+recursive-include b_aws_testing_framework *.sh

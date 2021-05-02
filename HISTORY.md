@@ -1,5 +1,8 @@
 # Release history
 
+### 0.5.1
+* Allow running cdk command even though it might be now defined globally.
+
 ### 0.5.0
 * Pass config object to custom actions.
 
