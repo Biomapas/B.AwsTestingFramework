@@ -1,5 +1,8 @@
 # Release history
 
+### 0.5.4
+* Make sure to exit after successful cdk execution.
+
 ### 0.5.3
 * Use "." instead of "source".
 
