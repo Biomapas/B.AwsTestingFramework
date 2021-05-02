@@ -1,5 +1,8 @@
 # Release history
 
+### 0.5.2
+* Execute cdk command in the same shell to preserve environment.
+
 ### 0.5.1
 * Allow running cdk command even though it might be now defined globally.
 
