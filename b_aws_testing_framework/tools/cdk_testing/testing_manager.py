@@ -106,15 +106,15 @@ class TestingManager(BaseTestingManager):
 
     @classmethod
     def __aws_cdk_bootstrap_command(cls) -> str:
-        return f'source {cls.custom_cdk_command()} bootstrap'
+        return f'. {cls.custom_cdk_command()} bootstrap'
 
     @classmethod
     def __aws_cdk_deploy_command(cls) -> str:
-        return f'source {cls.custom_cdk_command()} deploy --all --require-approval never'
+        return f'. {cls.custom_cdk_command()} deploy --all --require-approval never'
 
     @classmethod
     def __aws_cdk_destroy_command(cls) -> str:
-        return f'source {cls.custom_cdk_command()} destroy --all --require-approval never --force'
+        return f'. {cls.custom_cdk_command()} destroy --all --require-approval never --force'
 
     """
     Helpers.

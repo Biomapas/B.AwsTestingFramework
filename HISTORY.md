@@ -1,5 +1,8 @@
 # Release history
 
+### 0.5.3
+* Use "." instead of "source".
+
 ### 0.5.2
 * Execute cdk command in the same shell to preserve environment.
 
