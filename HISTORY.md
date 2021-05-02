@@ -1,5 +1,8 @@
 # Release history
 
+### 0.5.5
+* Warn if not cdk tool was found.
+
 ### 0.5.4
 * Make sure to exit after successful cdk execution.
 
