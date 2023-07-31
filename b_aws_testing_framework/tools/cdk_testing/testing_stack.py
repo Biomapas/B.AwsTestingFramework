@@ -1,9 +1,10 @@
 from functools import lru_cache
 from typing import Dict, Optional
 
+from aws_cdk import Stack, CfnOutput
 from aws_cdk.aws_ssm import StringParameter
-from aws_cdk.core import Stack, Construct, CfnOutput
 from b_cf_outputs.cf_outputs import CfOutputs
+from constructs import Construct
 
 from b_aws_testing_framework import b_aws_testing_framework_version
 from b_aws_testing_framework.credentials import Credentials

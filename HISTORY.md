@@ -1,5 +1,8 @@
 # Release history
 
+### 1.0.0
+* Upgrade CDK support from v1 to v2.
+
 ### 0.6.0
 * Too many bugs. Revert.
 

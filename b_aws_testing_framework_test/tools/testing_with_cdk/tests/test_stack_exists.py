@@ -1,4 +1,6 @@
+import itertools
 import logging
+from typing import Iterable, Dict, Any
 
 from b_aws_testing_framework.credentials import Credentials
 from b_aws_testing_framework.tools.cdk_testing.testing_stack import TestingStack
@@ -14,7 +16,11 @@ def test_stack_exists() -> None:
     """
     client = Credentials().boto_session.client('cloudformation')
 
-    stacks = client.list_stacks(StackStatusFilter=['CREATE_COMPLETE'])['StackSummaries']
-    stacks = [stack['StackName'] for stack in stacks]
+    response_iterator = client.get_paginator('list_stacks').paginate(StackStatusFilter=['CREATE_COMPLETE'])
+    stack_summaries: Iterable[Dict[str, Any]] = itertools.chain.from_iterable(
+        page['StackSummaries'] for page in response_iterator
+    )
 
-    assert TestingStack.name() in stacks
+    stack_names = [stack['StackName'] for stack in stack_summaries]
+
+    assert TestingStack.name() in stack_names

@@ -23,6 +23,7 @@ class Credentials:
         self.aws_session_token = aws_session_token
         self.profile_name = profile_name
         self.region_name = region_name
+        self.aws_account_id = self.boto_session.client("sts").get_caller_identity()["Account"]
 
     @property
     def boto_session(self) -> Session:
@@ -51,5 +52,6 @@ class Credentials:
             'AWS_SECRET_ACCESS_KEY': self.aws_secret_access_key,
             'AWS_SESSION_TOKEN': self.aws_session_token,
             'AWS_PROFILE': self.profile_name,
-            'AWS_DEFAULT_REGION': self.region_name
+            'AWS_DEFAULT_REGION': self.region_name,
+            'AWS_ACCOUNT_ID': self.aws_account_id
         }.items() if value} or None
