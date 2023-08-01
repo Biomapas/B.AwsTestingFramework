@@ -1,5 +1,10 @@
 # Release history
 
+### 1.0.0
+* Upgrade CDK support from v1 to v2.
+* Upgrade GitHub pipelines checkout version from v2 to v3.
+* Upgrade biomapas/cicd-full image version to 5.0.0.
+
 ### 0.6.0
 * Too many bugs. Revert.
 

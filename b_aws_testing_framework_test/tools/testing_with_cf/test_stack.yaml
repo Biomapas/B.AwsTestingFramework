@@ -30,6 +30,6 @@ Resources:
         Fn::GetAtt:
           - TestFunctionServiceRole
           - Arn
-      Runtime: python3.6
+      Runtime: python3.10
     DependsOn:
       - TestFunctionServiceRole

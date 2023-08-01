@@ -85,17 +85,17 @@ class TestingManager(BaseTestingManager):
     """
 
     def __bootstrap_infrastructure(self) -> None:
-        sub = ContinuousSubprocess(TestingManager.__aws_cdk_bootstrap_command())
+        sub = ContinuousSubprocess(self.__aws_cdk_bootstrap_command())
         output = sub.execute(path=self.__config.cdk_app_path, env=self.__config.deployment_process_environment)
         for line in output: logger.info(line.strip())
 
     def __create_infrastructure(self) -> None:
-        sub = ContinuousSubprocess(TestingManager.__aws_cdk_deploy_command())
+        sub = ContinuousSubprocess(self.__aws_cdk_deploy_command())
         output = sub.execute(path=self.__config.cdk_app_path, env=self.__config.deployment_process_environment)
         for line in output: logger.info(line.strip())
 
     def __destroy_infrastructure(self) -> None:
-        sub = ContinuousSubprocess(TestingManager.__aws_cdk_destroy_command())
+        sub = ContinuousSubprocess(self.__aws_cdk_destroy_command())
         output = sub.execute(path=self.__config.cdk_app_path, env=self.__config.deployment_process_environment)
         for line in output: logger.info(line.strip())
 
@@ -103,9 +103,8 @@ class TestingManager(BaseTestingManager):
     CDK Commands.
     """
 
-    @classmethod
-    def __aws_cdk_bootstrap_command(cls) -> str:
-        return f'cdk bootstrap'
+    def __aws_cdk_bootstrap_command(self) -> str:
+        return f'cdk bootstrap aws://{self.credentials.aws_account_id}/{self.credentials.region_name}'
 
     @classmethod
     def __aws_cdk_deploy_command(cls) -> str:
