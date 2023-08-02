@@ -1,5 +1,8 @@
 # Release history
 
+### 1.0.1
+* Update pipelines to fix "unclosed SSLSocket" warnings.
+
 ### 1.0.0
 * Upgrade CDK support from v1 to v2.
 * Upgrade GitHub pipelines checkout version from v2 to v3.
